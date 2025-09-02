@@ -7,7 +7,7 @@ function App() {
   const [counter, setCounter] = useState(0);
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
         <div className="flex flex-col items-center space-y-6">
           {/* Header Text */}
