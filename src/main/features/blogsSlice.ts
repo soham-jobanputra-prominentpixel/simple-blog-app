@@ -1,7 +1,7 @@
 import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store.ts";
 
-interface Blog {
+export interface Blog {
   id: string;
   date: string;
   title: string;
@@ -35,4 +35,6 @@ const blogsSlice = createSlice({
 export const blogsReducer = blogsSlice.reducer;
 export const { blogAdded } = blogsSlice.actions;
 
-export const selectAllBlogs = (state: RootState) => state.blogs 
+export const selectAllBlogs = (state: RootState) => state.blogs;
+export const selectBlogById = (blogId: string | undefined) => (state: RootState) =>
+  state.blogs.find((blog) => blog.id === blogId);

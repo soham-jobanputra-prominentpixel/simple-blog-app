@@ -6,8 +6,9 @@ import { ThemeProvider } from "./components/theme-provider.tsx";
 import Layout from "./Layout.tsx";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router";
-import Blogs from "./pages/Blogs.tsx";
+import Blogs from "./pages/Home.tsx";
 import AddBlog from "./pages/AddBlog.tsx";
+import BlogPage from "./pages/Blog.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
               <Route element={<Layout />}>
                 <Route index element={<Blogs />} />
                 <Route path="create-blog" element={<AddBlog />} />
+                <Route path="blog/:blogId" element={<BlogPage />} />
               </Route>
             </Routes>
           </BrowserRouter>
