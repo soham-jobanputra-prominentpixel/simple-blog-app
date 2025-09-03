@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router";
+import { Toaster } from "./components/ui/sonner.tsx";
 
 function Layout() {
-
   return (
     <>
       <header className="bg-black text-white px-4 py-2">
@@ -10,12 +10,22 @@ function Layout() {
             <Link to="/">Simple Blog</Link>
           </h1>
 
-          <h2 className="underline text-blue-400 hover:cursor-pointer hover:text-blue-200"><Link to="/create-blog">Create New Blog</Link></h2>
+          <h2 className="underline text-blue-400 hover:cursor-pointer hover:text-blue-200">
+            <Link to="/create-blog">Create New Blog</Link>
+          </h2>
         </div>
       </header>
       <div className="mx-auto lg:max-w-200 p-4">
         <Outlet />
       </div>
+      <Toaster
+        toastOptions={{
+          style: {
+            background: "black",
+            borderRadius: 0
+          },
+        }}
+      />
     </>
   );
 }

@@ -13,7 +13,7 @@ function EditorField({ ...props }: EditorFieldProps) {
     return (
         <div className={props.className}>
             {/* @ts-expect-error Editor is valid JSX element at runtime */}
-            <Editor {...field} {...props} />
+            <Editor {...field} {...props} id={props.name} />
             {meta.touched && meta.error
                 ? <div className="error text-red-700">{meta.error}</div>
                 : null}

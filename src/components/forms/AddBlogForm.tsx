@@ -63,6 +63,7 @@ function AddBlogForm({ onSubmit }: AddBlogFormProps) {
                     />
 
                     <Button
+                        type="submit"
                         text="submit"
                         className="mb-6"
                         hasError={hasError}
