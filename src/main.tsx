@@ -3,14 +3,24 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./main/store.ts";
 import { ThemeProvider } from "./components/theme-provider.tsx";
-import App from "./App.tsx";
+import Layout from "./Layout.tsx";
 import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router";
+import Blogs from "./pages/Blogs.tsx";
+import AddBlog from "./pages/AddBlog.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <Provider store={store}>
-        <App />
+          <BrowserRouter>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route index element={<Blogs />} />
+                <Route path="create-blog" element={<AddBlog />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
       </Provider>
     </ThemeProvider>
   </StrictMode>,
