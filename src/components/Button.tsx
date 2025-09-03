@@ -12,8 +12,8 @@ type ButtonProps = {
 
 function Button({ text, onClick, className, hasError = false }: ButtonProps) {
     return (
-        <ShadCnButton onClick={onClick} className={clsx("hover:cursor-pointer" ,hasError && "bg-red-700 hover:bg-red-700 animate-shake")}>
-            <span className={cn("text-xl", className)}>{text}</span>
+        <ShadCnButton onClick={onClick} className={clsx(cn("hover:cursor-pointer", className) ,hasError && "bg-red-700 hover:bg-red-700 animate-shake")}>
+            <span className="text-xl">{text}</span>
         </ShadCnButton>
     );
 }
