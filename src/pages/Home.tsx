@@ -7,13 +7,20 @@ function Home() {
 
     return (
         <ul>
-            {blogs.map(
-                (blog) => (
-                    <li key={blog.id}>
-                        <Link className="underline text-blue-600" to={`blog/${blog.id}`}>{blog.title}</Link>
-                    </li>
-                ),
-            )}
+            {blogs.length === 0
+                ? <h1>Create New Blog to get started!</h1>
+                : blogs.map(
+                    (blog) => (
+                        <li key={blog.id}>
+                            <Link
+                                className="underline text-blue-600"
+                                to={`blog/${blog.id}`}
+                            >
+                                {blog.title}
+                            </Link>
+                        </li>
+                    ),
+                )}
         </ul>
     );
 }

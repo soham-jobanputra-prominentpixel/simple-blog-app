@@ -4,18 +4,13 @@ import InputField from "./fields/InputField.tsx";
 import Button from "../Button.tsx";
 import * as Yup from "yup";
 import { useState } from "react";
+import type { Blog } from "../../main/features/blogsSlice.ts";
 
 interface FormElements {
     title: string;
     textEditor: string;
     author: string;
 }
-
-const initialValues: FormElements = {
-    title: "",
-    textEditor: "",
-    author: "",
-};
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
@@ -25,10 +20,17 @@ const validationSchema = Yup.object().shape({
 
 type AddBlogFormProps = {
     onSubmit: (formData: FormElements) => void;
+    existingBlog?: Blog;
 };
 
-function AddBlogForm({ onSubmit }: AddBlogFormProps) {
+function AddBlogForm({ onSubmit, existingBlog }: AddBlogFormProps) {
     const [hasError, setHasError] = useState(false);
+
+    const initialValues: FormElements = {
+        title: existingBlog?.title ?? "",
+        textEditor: existingBlog?.content ?? "",
+        author: existingBlog?.author ?? "",
+    };
 
     return (
         <Formik
@@ -64,7 +66,7 @@ function AddBlogForm({ onSubmit }: AddBlogFormProps) {
 
                     <Button
                         type="submit"
-                        text="submit"
+                        text="Submit"
                         className="mb-6"
                         hasError={hasError}
                         onClick={async () => {

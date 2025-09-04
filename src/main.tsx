@@ -5,24 +5,114 @@ import { store } from "./main/store.ts";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 import Layout from "./Layout.tsx";
 import "./index.css";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import Blogs from "./pages/Home.tsx";
 import AddBlog from "./pages/AddBlog.tsx";
 import BlogPage from "./pages/Blog.tsx";
+import { AnimatePresence, easeInOut, motion } from "framer-motion";
+import { Toaster } from "./components/ui/sonner.tsx";
+import EditBlog from "./pages/EditBlog.tsx";
+
+const pageVariants = {
+  initial: {
+    opacity: 0,
+  },
+  in: {
+    opacity: 1,
+  },
+  out: {
+    opacity: 0,
+  },
+};
+
+const pageTransition = {
+  duration: 0.3,
+  ease: easeInOut,
+};
+
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route element={<Layout />}>
+          <Route
+            index
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Blogs />
+              </motion.div>
+            }
+          />
+          <Route
+            path="create-blog"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <AddBlog />
+              </motion.div>
+            }
+          />
+          <Route
+            path="blog/:blogId"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <BlogPage />
+              </motion.div>
+            }
+          />
+          <Route
+            path="edit-blog/:blogId"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <EditBlog />
+              </motion.div>
+            }
+          />
+        </Route>
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <Provider store={store}>
-          <BrowserRouter>
-            <Routes>
-              <Route element={<Layout />}>
-                <Route index element={<Blogs />} />
-                <Route path="create-blog" element={<AddBlog />} />
-                <Route path="blog/:blogId" element={<BlogPage />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
+        <BrowserRouter>
+          <AnimatedRoutes />
+          <Toaster
+            toastOptions={{
+              style: {
+                background: "black",
+                borderRadius: 0,
+              },
+            }}
+          />
+        </BrowserRouter>
       </Provider>
     </ThemeProvider>
   </StrictMode>,

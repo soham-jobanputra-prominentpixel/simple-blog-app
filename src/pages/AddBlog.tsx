@@ -21,7 +21,7 @@ function AddBlog() {
                             formData.author,
                         ),
                     );
-                    successToast(" The blog has been created successfully!");
+                    successToast("The blog has been created successfully!");
                     navigate("/");
                 }}
             />

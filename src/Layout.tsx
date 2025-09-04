@@ -1,5 +1,4 @@
 import { Link, Outlet } from "react-router";
-import { Toaster } from "./components/ui/sonner.tsx";
 
 function Layout() {
   return (
@@ -18,14 +17,6 @@ function Layout() {
       <div className="mx-auto lg:max-w-200 p-4">
         <Outlet />
       </div>
-      <Toaster
-        toastOptions={{
-          style: {
-            background: "black",
-            borderRadius: 0
-          },
-        }}
-      />
     </>
   );
 }
