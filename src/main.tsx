@@ -176,7 +176,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename="/simple-blog-app/">
           <AnimatedRoutes />
           <Toaster
             toastOptions={{
