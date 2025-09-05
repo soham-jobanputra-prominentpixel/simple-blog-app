@@ -15,4 +15,16 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: [
+          "import",
+          "mixed-decls",
+          "color-functions",
+          "global-builtin",
+        ],
+      },
+    },
+  },
 });
