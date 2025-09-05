@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { blogsReducer } from "./features/blogsSlice.ts";
 import { authReducer } from "./features/authSlice.ts";
+import { initialAppData } from "./initialAppData.ts";
 
 function loadState(): unknown {
   const serializedState = localStorage.getItem("reduxStore");
   if (serializedState === null) {
-    return undefined;
+    return initialAppData;
   }
   return JSON.parse(serializedState);
 }
