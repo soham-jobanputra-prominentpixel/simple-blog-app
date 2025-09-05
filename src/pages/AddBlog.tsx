@@ -7,35 +7,35 @@ import { useSelector } from "react-redux/alternate-renderers";
 import { selectLoggedInUser } from "../main/features/authSlice.ts";
 
 function AddBlog() {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const user = useSelector(selectLoggedInUser);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(selectLoggedInUser);
 
-    return (
+  return (
+    <>
+      {user === undefined ? <h1>No user logged in</h1> : (
         <>
-            {user === undefined ? <h1>No user logged in</h1> : (
-                <>
-                    <h1 className="my-0 mt-4">Add New Blog</h1>
-                    <hr className="mb-4 border-1 border-black" />
-                    <AddBlogForm
-                        onSubmit={(formData) => {
-                            dispatch(
-                                blogAdded(
-                                    formData.title,
-                                    formData.textEditor,
-                                    user.id,
-                                ),
-                            );
-                            successToast(
-                                "The blog has been created successfully!",
-                            );
-                            navigate("/");
-                        }}
-                    />
-                </>
-            )}
+          <h1 className="my-0 mt-4">Add New Blog</h1>
+          <hr className="mb-4 border-1 border-black" />
+          <AddBlogForm
+            onSubmit={(formData) => {
+              dispatch(
+                blogAdded(
+                  formData.title,
+                  formData.textEditor,
+                  user.id,
+                ),
+              );
+              successToast(
+                "The blog has been created successfully!",
+              );
+              navigate("/");
+            }}
+          />
         </>
-    );
+      )}
+    </>
+  );
 }
 
 export default AddBlog;

@@ -103,13 +103,13 @@
     @apply bg-background text-foreground;
   }
   h1 {
-    @apply text-3xl font-bold my-4
+    @apply text-3xl font-bold my-4;
   }
   h2 {
-    @apply text-2xl font-bold my-3
+    @apply text-2xl font-bold my-3;
   }
   pre {
-    @apply text-stone-600 tracking-wide leading-relaxed
+    @apply text-stone-600 tracking-wide leading-relaxed;
   }
 }
 
@@ -119,12 +119,24 @@
 
 /* Shaking animation */
 @keyframes shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-5px); }
-  40% { transform: translateX(5px); }
-  60% { transform: translateX(-5px); }
-  80% { transform: translateX(5px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* Constant shake class */

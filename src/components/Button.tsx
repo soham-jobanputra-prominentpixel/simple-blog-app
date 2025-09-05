@@ -4,21 +4,39 @@ import { cn } from "./ui/lib/utils.ts";
 import clsx from "clsx";
 
 type ButtonProps = {
-    text: string;
-    onClick?: (e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    className?: string
-    hasError?: boolean
-    type?: "button" | "submit" | "reset" | undefined
-    textStyle?: string
-    disabled?: boolean
+  text: string;
+  onClick?: (e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  className?: string;
+  hasError?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
+  textStyle?: string;
+  disabled?: boolean;
 };
 
-function Button({ text, onClick, className, hasError = false, type = "button", textStyle, disabled = false  }: ButtonProps) {
-    return (
-        <ShadCnButton disabled={disabled} type={type} onClick={onClick} className={clsx(cn("hover:cursor-pointer", className) ,hasError && "bg-red-700 hover:bg-red-700 animate-shake")}>
-            <span className={cn("text-xl", textStyle)}>{text}</span>
-        </ShadCnButton>
-    );
+function Button(
+  {
+    text,
+    onClick,
+    className,
+    hasError = false,
+    type = "button",
+    textStyle,
+    disabled = false,
+  }: ButtonProps,
+) {
+  return (
+    <ShadCnButton
+      disabled={disabled ?? false}
+      type={type}
+      onClick={onClick}
+      className={clsx(
+        cn("hover:cursor-pointer", className),
+        hasError && "bg-red-700 hover:bg-red-700 animate-shake",
+      )}
+    >
+      <span className={cn("text-xl", textStyle)}>{text}</span>
+    </ShadCnButton>
+  );
 }
 
 export default Button;

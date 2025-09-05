@@ -35,6 +35,7 @@ const pageTransition = {
 
 function AnimatedRoutes() {
   const location = useLocation();
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
@@ -110,6 +111,20 @@ function AnimatedRoutes() {
             }
           />
           <Route
+            path="my-blog/:blogId"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <BlogPage onlyMy />
+              </motion.div>
+            }
+          />
+          <Route
             path="edit-blog/:blogId"
             element={
               <motion.div
@@ -134,6 +149,20 @@ function AnimatedRoutes() {
                 transition={pageTransition}
               >
                 <Profile />
+              </motion.div>
+            }
+          />
+          <Route
+            path="my-blogs"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Blogs onlyMy />
               </motion.div>
             }
           />

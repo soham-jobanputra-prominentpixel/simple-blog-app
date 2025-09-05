@@ -1,5 +1,6 @@
 import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store.ts";
+import { selectLoggedInUser } from "./authSlice.ts";
 
 export interface Blog {
   id: string;
@@ -7,7 +8,7 @@ export interface Blog {
   title: string;
   content: string;
   lastEditedAt: string;
-  userId: string
+  userId: string;
 }
 
 const blogsSlice = createSlice({
@@ -59,19 +60,24 @@ export const selectBlogById =
   (blogId: string | undefined) => (state: RootState) =>
     state.blogs.find((blog) => blog.id === blogId);
 export const selectPreviousAndNextBlogId =
-  (blogId: string | undefined) => (state: RootState) => {
-    if (state.blogs.length > 1 && blogId !== undefined) {
-      const blogIndex = state.blogs.findIndex((blog) => blog.id === blogId);
-      const lastIndex = state.blogs.length - 1;
+  (blogId: string | undefined, onlyMy: boolean) => (state: RootState) => {
+    const blogs = onlyMy ? selectMyBlogs(state) : state.blogs;
+    if (blogs.length > 1 && blogId !== undefined) {
+      const blogIndex = blogs.findIndex((blog) => blog.id === blogId);
+      const lastIndex = blogs.length - 1;
 
       if (blogIndex === lastIndex) {
-        return [state.blogs[blogIndex - 1].id, undefined];
+        return [blogs[blogIndex - 1].id, undefined];
       } else if (blogIndex === 0) {
-        return [undefined, state.blogs[blogIndex + 1].id];
+        return [undefined, blogs[blogIndex + 1].id];
       } else {
-        return [state.blogs[blogIndex - 1].id, state.blogs[blogIndex + 1].id];
+        return [blogs[blogIndex - 1].id, blogs[blogIndex + 1].id];
       }
     } else {
       return [undefined, undefined];
     }
   };
+export const selectMyBlogs = (state: RootState) =>
+  selectAllBlogs(state).filter(
+    (blog) => blog.userId === selectLoggedInUser(state)?.id,
+  );

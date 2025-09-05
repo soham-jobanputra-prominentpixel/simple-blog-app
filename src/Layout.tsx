@@ -18,14 +18,18 @@ function Layout() {
             <h2 className="hover:cursor-pointer text-white hover:text-blue-400">
               <Link to="/create-blog">Create Blog</Link>
             </h2>
-            <h2 className="hover:cursor-pointer text-white hover:text-blue-400">
-              My Blogs
-            </h2>
+            {user !== undefined
+              ? (
+                <h2 className="hover:cursor-pointer text-white hover:text-blue-400">
+                  <Link to="my-blogs">My Blogs</Link>
+                </h2>
+              )
+              : ""}
           </div>
 
           {user === undefined
             ? (
-              <h2 className="text-white hover:cursor-pointer hover:text-blue-200">
+              <h2 className="text-white hover:cursor-pointer hover:text-blue-200 mt-5">
                 <Link to="/sign-up">Login/Sign up</Link>
               </h2>
             )
