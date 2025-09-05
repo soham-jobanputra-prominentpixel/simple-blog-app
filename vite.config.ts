@@ -11,6 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  base: "/simple-blog-app/",
   build: {
     sourcemap: true,
   },
