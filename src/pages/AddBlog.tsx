@@ -24,6 +24,7 @@ function AddBlog() {
                   formData.title,
                   formData.textEditor,
                   user.id,
+                  formData.thumbnail,
                 ),
               );
               successToast(

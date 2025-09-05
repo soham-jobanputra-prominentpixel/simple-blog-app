@@ -62,6 +62,11 @@ function Blog({ blog, onlyMy }: BlogProps) {
         }}
         onOpenChange={() => setIsDeleteModalOpen(false)}
       />
+      <img
+        src={blog.thumbnail}
+        alt="Blog Thumbnail"
+        className="w-full aspect-video object-cover"
+      />
       <h1 className="mb-0 text-4xl">{blog.title}</h1>
       <div className="text-lg">
         <span className="capitalize">by {blogAuthor!.username}</span> <br />

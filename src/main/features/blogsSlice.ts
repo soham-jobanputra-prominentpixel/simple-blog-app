@@ -9,6 +9,7 @@ export interface Blog {
   content: string;
   lastEditedAt: string;
   userId: string;
+  thumbnail: string;
 }
 
 const blogsSlice = createSlice({
@@ -19,7 +20,12 @@ const blogsSlice = createSlice({
       reducer(state, action: PayloadAction<Blog>) {
         state.push(action.payload);
       },
-      prepare(title: string, content: string, userId: string) {
+      prepare(
+        title: string,
+        content: string,
+        userId: string,
+        thumbnail: string,
+      ) {
         return {
           payload: {
             id: nanoid(),
@@ -28,6 +34,7 @@ const blogsSlice = createSlice({
             content,
             userId,
             lastEditedAt: new Date().toISOString(),
+            thumbnail,
           },
         };
       },
@@ -40,13 +47,16 @@ const blogsSlice = createSlice({
     },
     blogEdited: (
       state,
-      action: PayloadAction<Pick<Blog, "id" | "content" | "title">>,
+      action: PayloadAction<
+        Pick<Blog, "id" | "content" | "title" | "thumbnail">
+      >,
     ) => {
       const blog = state.find((blog) => blog.id === action.payload.id);
       if (blog !== undefined) {
         blog.title = action.payload.title;
         blog.content = action.payload.content;
         blog.lastEditedAt = new Date().toISOString();
+        blog.thumbnail = action.payload.thumbnail;
       }
     },
   },

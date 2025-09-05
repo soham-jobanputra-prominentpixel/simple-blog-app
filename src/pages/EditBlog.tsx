@@ -37,6 +37,7 @@ function EditBlog() {
                       id: blog.id,
                       title: formData.title,
                       content: formData.textEditor,
+                      thumbnail: formData.thumbnail,
                     },
                   ),
                 );
