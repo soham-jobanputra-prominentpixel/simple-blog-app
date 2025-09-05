@@ -8,6 +8,7 @@ type InputFieldProps = {
     type: string;
     className?: string
     accept?: string
+    disabled?: boolean
 };
 
 function InputField({ label, ...props }: InputFieldProps) {
@@ -16,7 +17,7 @@ function InputField({ label, ...props }: InputFieldProps) {
     return (
         <div className={props.className}>
             <label htmlFor={props.name} className="font-bold text-xl">{label}:</label>
-            <Input {...field} {...props} id={props.name} className="border-2 border-black bg-white" accept={props.accept} />
+            <Input disabled={props.disabled ?? false} {...field} {...props} id={props.name} className="border-2 border-black bg-white" accept={props.accept} />
             {meta.touched && meta.error
                 ? <div className="error text-red-700 mb-2">{meta.error}</div>
                 : null}

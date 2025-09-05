@@ -4,12 +4,14 @@ import {
     type Blog as BlogType,
     blogDeleted,
     selectBlogById,
+    selectPreviousAndNextBlogId,
 } from "../main/features/blogsSlice.ts";
 import Button from "../components/Button.tsx";
 import { formatToAmericanDate } from "../components/ui/lib/utils.ts";
 import { useState } from "react";
 import { DeleteConfirmationModal } from "../components/DeleteConfirmationModal.tsx";
 import { errorToast } from "../components/ui/toast.tsx";
+import { selectUserById } from "../main/features/authSlice.ts";
 
 function BlogPage() {
     const { blogId } = useParams<{ blogId: string }>();
@@ -30,6 +32,10 @@ function Blog({ blog }: BlogProps) {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [previousBlogId, nextBlogId] = useAppSelector(
+        selectPreviousAndNextBlogId(blog.id),
+    );
+    const user = useAppSelector(selectUserById(blog.userId));
 
     return (
         <>
@@ -45,7 +51,7 @@ function Blog({ blog }: BlogProps) {
             />
             <h1 className="mb-0 text-4xl">{blog.title}</h1>
             <div className="text-lg">
-                <span className="capitalize">by {blog.author}</span> <br />
+                <span className="capitalize">by {user!.username}</span> <br />
                 <span className="capitalize">
                     published on {formatToAmericanDate(blog.date)}
                 </span>{" "}
@@ -73,6 +79,28 @@ function Blog({ blog }: BlogProps) {
                 className="text-xl"
                 dangerouslySetInnerHTML={{ __html: blog.content }}
             />
+            {user!.id === blog.userId
+                ? (
+                    <div className="flex justify-between my-3">
+                        <Button
+                            text="Previous"
+                            disabled={previousBlogId === undefined
+                                ? true
+                                : undefined}
+                            onClick={() => navigate(`/blog/${previousBlogId}`)}
+                        />
+                        <Button
+                            text="Next"
+                            disabled={nextBlogId === undefined
+                                ? true
+                                : undefined}
+                            onClick={() => navigate(`/blog/${nextBlogId}`)}
+                        />
+                    </div>
+                )
+                : (
+                    ""
+                )}
         </>
     );
 }

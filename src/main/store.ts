@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { blogsReducer } from "./features/blogsSlice.ts";
+import { authReducer } from "./features/authSlice.ts";
 
 function loadState(): unknown {
   const serializedState = localStorage.getItem("reduxStore");
@@ -12,8 +13,9 @@ function loadState(): unknown {
 export const store = configureStore({
   reducer: {
     blogs: blogsReducer,
+    auth: authReducer,
   },
-  preloadedState: loadState()
+  preloadedState: loadState(),
 });
 
 store.subscribe(() => {

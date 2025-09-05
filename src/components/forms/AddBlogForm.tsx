@@ -5,6 +5,8 @@ import Button from "../Button.tsx";
 import * as Yup from "yup";
 import { useState } from "react";
 import type { Blog } from "../../main/features/blogsSlice.ts";
+import { useSelector } from "react-redux/alternate-renderers";
+import { selectLoggedInUser } from "../../main/features/authSlice.ts";
 
 interface FormElements {
     title: string;
@@ -25,11 +27,12 @@ type AddBlogFormProps = {
 
 function AddBlogForm({ onSubmit, existingBlog }: AddBlogFormProps) {
     const [hasError, setHasError] = useState(false);
+    const user = useSelector(selectLoggedInUser);
 
     const initialValues: FormElements = {
         title: existingBlog?.title ?? "",
         textEditor: existingBlog?.content ?? "",
-        author: existingBlog?.author ?? "",
+        author: user?.username ?? "",
     };
 
     return (
@@ -62,6 +65,7 @@ function AddBlogForm({ onSubmit, existingBlog }: AddBlogFormProps) {
                         type="text"
                         placeholder="Author Name"
                         className="mb-4 w-fit"
+                        disabled
                     />
 
                     <Button

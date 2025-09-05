@@ -12,6 +12,9 @@ import BlogPage from "./pages/Blog.tsx";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import { Toaster } from "./components/ui/sonner.tsx";
 import EditBlog from "./pages/EditBlog.tsx";
+import SignUp from "./pages/SignUp.tsx";
+import Login from "./pages/Login.tsx";
+import Profile from "./pages/Profile.tsx";
 
 const pageVariants = {
   initial: {
@@ -35,6 +38,34 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route
+          path="sign-up"
+          element={
+            <motion.div
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              <SignUp />
+            </motion.div>
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <motion.div
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              <Login />
+            </motion.div>
+          }
+        />
         <Route element={<Layout />}>
           <Route
             index
@@ -89,6 +120,20 @@ function AnimatedRoutes() {
                 transition={pageTransition}
               >
                 <EditBlog />
+              </motion.div>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Profile />
               </motion.div>
             }
           />

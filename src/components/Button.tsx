@@ -8,13 +8,14 @@ type ButtonProps = {
     onClick?: (e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => void;
     className?: string
     hasError?: boolean
-    type: "button" | "submit" | "reset" | undefined
+    type?: "button" | "submit" | "reset" | undefined
     textStyle?: string
+    disabled?: boolean
 };
 
-function Button({ text, onClick, className, hasError = false, type, textStyle  }: ButtonProps) {
+function Button({ text, onClick, className, hasError = false, type = "button", textStyle, disabled = false  }: ButtonProps) {
     return (
-        <ShadCnButton type={type} onClick={onClick} className={clsx(cn("hover:cursor-pointer", className) ,hasError && "bg-red-700 hover:bg-red-700 animate-shake")}>
+        <ShadCnButton disabled={disabled} type={type} onClick={onClick} className={clsx(cn("hover:cursor-pointer", className) ,hasError && "bg-red-700 hover:bg-red-700 animate-shake")}>
             <span className={cn("text-xl", textStyle)}>{text}</span>
         </ShadCnButton>
     );

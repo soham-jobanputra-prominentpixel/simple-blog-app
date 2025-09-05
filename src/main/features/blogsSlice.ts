@@ -6,8 +6,8 @@ export interface Blog {
   date: string;
   title: string;
   content: string;
-  author: string;
   lastEditedAt: string;
+  userId: string
 }
 
 const blogsSlice = createSlice({
@@ -18,14 +18,14 @@ const blogsSlice = createSlice({
       reducer(state, action: PayloadAction<Blog>) {
         state.push(action.payload);
       },
-      prepare(title: string, content: string, author: string) {
+      prepare(title: string, content: string, userId: string) {
         return {
           payload: {
             id: nanoid(),
             date: new Date().toISOString(),
             title,
             content,
-            author,
+            userId,
             lastEditedAt: new Date().toISOString(),
           },
         };
@@ -39,13 +39,12 @@ const blogsSlice = createSlice({
     },
     blogEdited: (
       state,
-      action: PayloadAction<Pick<Blog, "id" | "content" | "title" | "author">>,
+      action: PayloadAction<Pick<Blog, "id" | "content" | "title">>,
     ) => {
       const blog = state.find((blog) => blog.id === action.payload.id);
       if (blog !== undefined) {
         blog.title = action.payload.title;
         blog.content = action.payload.content;
-        blog.author = action.payload.author;
         blog.lastEditedAt = new Date().toISOString();
       }
     },
@@ -59,3 +58,20 @@ export const selectAllBlogs = (state: RootState) => state.blogs;
 export const selectBlogById =
   (blogId: string | undefined) => (state: RootState) =>
     state.blogs.find((blog) => blog.id === blogId);
+export const selectPreviousAndNextBlogId =
+  (blogId: string | undefined) => (state: RootState) => {
+    if (state.blogs.length > 1 && blogId !== undefined) {
+      const blogIndex = state.blogs.findIndex((blog) => blog.id === blogId);
+      const lastIndex = state.blogs.length - 1;
+
+      if (blogIndex === lastIndex) {
+        return [state.blogs[blogIndex - 1].id, undefined];
+      } else if (blogIndex === 0) {
+        return [undefined, state.blogs[blogIndex + 1].id];
+      } else {
+        return [state.blogs[blogIndex - 1].id, state.blogs[blogIndex + 1].id];
+      }
+    } else {
+      return [undefined, undefined];
+    }
+  };
